@@ -5,22 +5,25 @@ using namespace std;
 
 void EnterWordToBeGuessed(vector <char> &WordToGuess);
 void ClearScreen();
-void GuessWord(vector <char> &WordToGuess);
-void DisplayCorrectLettersAndBlankSpaces(vector <char> &WordToGuess);
+void InitializeUnderlinesAndBlankSpaces(vector <char> &WordToGuess, vector <char> &CorrectLettersAndBlankSpaces);
+void GuessWord(vector <char> &WordToGuess, vector <char> &CorrectLetters);
 void TemporaryIndicationOfIncorrectGuess(int NumOfIncorrectGuesses);//to be rewritten to display hangman
 
 int main()
 {
     int NumberOfIncorrectGuesses = 6;
     vector <char> WordToBeGuessed;
+    vector <char> CorrectLettersAndBlankSpaces;
     
     EnterWordToBeGuessed(WordToBeGuessed);
+    
+    InitializeUnderlinesAndBlankSpaces(WordToBeGuessed, CorrectLettersAndBlankSpaces);
     
     /* ADD NEWLINES TO CLEAR SCREEN */
     
     ClearScreen();
     
-    GuessWord(WordToBeGuessed);
+    GuessWord(WordToBeGuessed, CorrectLettersAndBlankSpaces);
     
     TemporaryIndicationOfIncorrectGuess(NumberOfIncorrectGuesses);
 }
@@ -51,25 +54,37 @@ void ClearScreen()
     }
 }
 
-void GuessWord(vector <char> &WordToGuess)
+void InitializeUnderlinesAndBlankSpaces(vector <char> &WordToGuess, vector <char> &CorrectLetters)
+{
+    char UnderLine = '_';
+    char Space     = ' ';
+    
+    /* FILL UP CORRECTLETTERS WITH TWICE AS MANY ELEMENTS AS WORDTOGUESS, USING WORDTOGUESS.SIZE() */
+    
+    for (int i = 0; i < WordToGuess.size(); i++)
+    {
+        CorrectLetters.push_back(UnderLine);
+        CorrectLetters.push_back(Space);
+    }
+}
+
+void GuessWord(vector <char> &WordToGuess, vector <char> &CorrectLetters)
 {
     char Input;
     
-    DisplayCorrectLettersAndBlankSpaces(WordToGuess);
+    /* DISPLAY CORRECT LETTERS */
     
-    cout << "Guess one letter: ";
+    cout << "Word to Guess: ";
+    
+    for (int i = 0; i < CorrectLetters.size(); i++)
+    {
+        cout << CorrectLetters[i];
+    }
+    
+    cout << "\n\nGuess one letter: ";
     
     cin >> Input;
     cin.ignore();// IGNORE NEWLINE AFTER CIN >>
-    
-    
-}
-
-void DisplayCorrectLettersAndBlankSpaces(vector <char> &WordToGuess)
-{
-    /* INITIALIZE VECTOR TO BE TWICE THE SIZE OF WORD TO GUESS, FOR BLANK SPACES BETWEEN */
-    
-    vector <char> CorrectLettersAndBlankSpaces(WordToGuess.size() * 2);
     
     
 }
