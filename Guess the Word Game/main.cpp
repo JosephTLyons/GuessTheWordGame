@@ -8,16 +8,20 @@ void EnterWordToBeGuessed(vector <char> &WordToGuess);
 void ClearScreen();
 void InitializeUnderlinesAndBlankSpaces(const vector <char> &WordToGuess, vector <char> &CorrectLetters);
 void GuessWord(const vector <char> &WordToGuess, vector <char> &CorrectLetters);
-bool SeeIfLetterGuessedIsInWord(const char &Input, const vector <char> &WordToGuess, int &PositionOfFoundLetter);
 void RemoveGuessedLetterFromLetterPool(char LetterPool[], const char &Input);
-void InsertCorrectLetterInCorrectLetterVector(const vector <char> &WordToGuess, const int &PositionOfFoundLetter, vector <char> &CorrectLetters);
+bool SeeIfLetterGuessedIsInWord(const char &Input, const vector <char> &WordToGuess, vector <int> &PositionOfFoundLetter);
+void InsertCorrectLetterInCorrectLetterVector(const vector <char> &WordToGuess, const vector <int> &PositionOfFoundLetter, vector <char> &CorrectLetters);
 void TemporaryIndicationOfIncorrectGuess(const int NumOfIncorrectGuesses);//to be rewritten to display hangman
 
-/* 
+/*
  
- HOW TO DEAL WITH WORDS WITH MULTIPLE SAME LETTERS?
  DISPLAY FULL ALPHABET AND REMOVE THEM AS THE ARE USE
  DISPLAY ALL LETTERS USED
+ 
+ CODE GAME TO END IF GUESSED ALL LETTERS - WIN
+ CODE GAM TO END IF TOO MANY XS COME UP - END
+ 
+ FIX SPACING IN OUTPUT
  
 */
 
@@ -80,15 +84,15 @@ void InitializeUnderlinesAndBlankSpaces(const vector <char> &WordToGuess, vector
 void GuessWord(const vector <char> &WordToGuess, vector <char> &CorrectLetters)
 {
     char Input;
-    int NumberOfIncorrectGuesses = 0;//hard coded for now
-    int PositionOfFoundLetter;
+    int NumberOfIncorrectGuesses = 0;
+    vector <int> PositionOfFoundLetter;// EACH ELEMENT HOLDS THE POSITION OF THE LETTER GUESSED, IN RELATIONSHIP TO THE WORD BEING GUESSED
     
     /* PLACED SPACE BEFORE A SO I COULD USE 1 INSTEAD OF 0 IN ARRAY NOTATION TO ACCESS THE FIRST LETTER */
     char LetterPool[] = " A B C D E F G H I J K L M N O P Q R S T U V W X Y Z";
     
     do
     {
-        PositionOfFoundLetter = -1;//SET AT -1 BECAUSE ITS USED WITH ARRAY STYLE NOTATION, WHICH STARTS A 0
+        PositionOfFoundLetter.clear();
         
         /* DISPLAY CORRECT LETTERS */
         
@@ -129,7 +133,7 @@ void GuessWord(const vector <char> &WordToGuess, vector <char> &CorrectLetters)
             NumberOfIncorrectGuesses++;
         }
         
-        if (PositionOfFoundLetter > -1)
+        if (PositionOfFoundLetter.size() > 0)
         {
             InsertCorrectLetterInCorrectLetterVector(WordToGuess, PositionOfFoundLetter, CorrectLetters);
         }
@@ -158,25 +162,33 @@ void RemoveGuessedLetterFromLetterPool(char LetterPool[], const char &Input)
     }
 }
 
-bool SeeIfLetterGuessedIsInWord(const char &Input, const vector <char> &WordToGuess, int &PositionOfFoundLetter)
+bool SeeIfLetterGuessedIsInWord(const char &Input, const vector <char> &WordToGuess, vector <int> &PositionOfFoundLetter)
 {
     for (int i = 0; i < WordToGuess.size(); i++ )
     {
+        bool LetterFoundFlag;
         /* CHECKING TO SEE IF LETTER IS ANYWHERE IN WORDTOGUESS, BY ITERATING THROUGH IT */
         
-        if (Input== WordToGuess[i])
+        if (Input == WordToGuess[i])
         {
-            PositionOfFoundLetter = i;
-            return true;
+            PositionOfFoundLetter.push_back(i);
+            LetterFoundFlag = true;
         }
     }
     
-    return false;
+    if (PositionOfFoundLetter.size() > 0)
+        return true;
+    
+    else
+        return false;
 }
 
-void InsertCorrectLetterInCorrectLetterVector(const vector <char> &WordToGuess, const int &PositionOfFoundLetter, vector <char> &CorrectLetters)
+void InsertCorrectLetterInCorrectLetterVector(const vector <char> &WordToGuess, const vector <int> &PositionOfFoundLetter, vector <char> &CorrectLetters)
 {
-    CorrectLetters[PositionOfFoundLetter * 2] = WordToGuess[PositionOfFoundLetter];
+    for (int i = 0; i < PositionOfFoundLetter.size(); i++)
+    {
+        CorrectLetters[PositionOfFoundLetter[i] * 2] = WordToGuess[PositionOfFoundLetter[i]];
+    }
 }
 
 void TemporaryIndicationOfIncorrectGuess(const int NumOfIncorrectGuesses)
