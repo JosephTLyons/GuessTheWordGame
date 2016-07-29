@@ -3,25 +3,29 @@
 
 using namespace std;
 
-void EnterWord(vector <char> &WordToBeGuessed);
+void EnterWordToBeGuessed(vector <char> &WordToGuess);
 void ClearScreen();
-void TemporaryIndicationOfIncorrectGuess(int NumOfIncorrectGuesses);
+void GuessWord(vector <char> &WordToGuess);
+void DisplayCorrectLettersAndBlankSpaces(vector <char> &WordToGuess);
+void TemporaryIndicationOfIncorrectGuess(int NumOfIncorrectGuesses);//to be rewritten to display hangman
 
 int main()
 {
     int NumberOfIncorrectGuesses = 6;
     vector <char> WordToBeGuessed;
     
-    EnterWord(WordToBeGuessed);
+    EnterWordToBeGuessed(WordToBeGuessed);
     
-    /* ADD NEWLINES */
+    /* ADD NEWLINES TO CLEAR SCREEN */
     
     ClearScreen();
+    
+    GuessWord(WordToBeGuessed);
     
     TemporaryIndicationOfIncorrectGuess(NumberOfIncorrectGuesses);
 }
 
-void EnterWord(vector <char> &WordToBeGuessed)
+void EnterWordToBeGuessed(vector <char> &WordToGuess)
 {
     char Input;
     
@@ -31,7 +35,7 @@ void EnterWord(vector <char> &WordToBeGuessed)
     
     while (Input != '\n')
     {
-        WordToBeGuessed.push_back(Input);
+        WordToGuess.push_back(Input);
         cin.get(Input);
     }
 }
@@ -45,6 +49,29 @@ void ClearScreen()
     {
         cout << "\n";
     }
+}
+
+void GuessWord(vector <char> &WordToGuess)
+{
+    char Input;
+    
+    DisplayCorrectLettersAndBlankSpaces(WordToGuess);
+    
+    cout << "Guess one letter: ";
+    
+    cin >> Input;
+    cin.ignore();// IGNORE NEWLINE AFTER CIN >>
+    
+    
+}
+
+void DisplayCorrectLettersAndBlankSpaces(vector <char> &WordToGuess)
+{
+    /* INITIALIZE VECTOR TO BE TWICE THE SIZE OF WORD TO GUESS, FOR BLANK SPACES BETWEEN */
+    
+    vector <char> CorrectLettersAndBlankSpaces(WordToGuess.size() * 2);
+    
+    
 }
 
 void TemporaryIndicationOfIncorrectGuess(int NumOfIncorrectGuesses)
