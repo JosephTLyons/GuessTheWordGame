@@ -1,17 +1,19 @@
 #include <iostream>
-#include <vector>
+#include <ctype.h> //for toupper functions
+#include <vector>  //for using vectors
 
 using namespace std;
 
 void EnterWordToBeGuessed(vector <char> &WordToGuess);
 void ClearScreen();
-void InitializeUnderlinesAndBlankSpaces(vector <char> &WordToGuess, vector <char> &CorrectLettersAndBlankSpaces);
-void GuessWord(vector <char> &WordToGuess, vector <char> &CorrectLetters);
-void TemporaryIndicationOfIncorrectGuess(int NumOfIncorrectGuesses);//to be rewritten to display hangman
+void InitializeUnderlinesAndBlankSpaces(const vector <char> &WordToGuess, vector <char> &CorrectLetters);
+void GuessWord(const vector <char> &WordToGuess, vector <char> &CorrectLetters);
+bool SeeIfLetterGuessedIsInWord(const char &Input, const vector <char> &WordToGuess, int &PositionOfFoundLetter);
+void InsertCorrectLetterInCorrectLetterVector(const vector <char> &WordToGuess, const int &PositionOfFoundLetter, vector <char> &CorrectLetters);
+void TemporaryIndicationOfIncorrectGuess(const int NumOfIncorrectGuesses);//to be rewritten to display hangman
 
 int main()
 {
-    int NumberOfIncorrectGuesses = 6;
     vector <char> WordToBeGuessed;
     vector <char> CorrectLettersAndBlankSpaces;
     
@@ -24,8 +26,6 @@ int main()
     ClearScreen();
     
     GuessWord(WordToBeGuessed, CorrectLettersAndBlankSpaces);
-    
-    TemporaryIndicationOfIncorrectGuess(NumberOfIncorrectGuesses);
 }
 
 void EnterWordToBeGuessed(vector <char> &WordToGuess)
@@ -38,7 +38,7 @@ void EnterWordToBeGuessed(vector <char> &WordToGuess)
     
     while (Input != '\n')
     {
-        WordToGuess.push_back(Input);
+        WordToGuess.push_back(toupper(Input));
         cin.get(Input);
     }
 }
@@ -54,7 +54,7 @@ void ClearScreen()
     }
 }
 
-void InitializeUnderlinesAndBlankSpaces(vector <char> &WordToGuess, vector <char> &CorrectLetters)
+void InitializeUnderlinesAndBlankSpaces(const vector <char> &WordToGuess, vector <char> &CorrectLetters)
 {
     char UnderLine = '_';
     char Space     = ' ';
@@ -68,28 +68,76 @@ void InitializeUnderlinesAndBlankSpaces(vector <char> &WordToGuess, vector <char
     }
 }
 
-void GuessWord(vector <char> &WordToGuess, vector <char> &CorrectLetters)
+void GuessWord(const vector <char> &WordToGuess, vector <char> &CorrectLetters)
 {
     char Input;
+    int NumberOfIncorrectGuesses = 0;//hard coded for now
+    int PositionOfFoundLetter = -1;  //initialized at -1 because it uses array style notation, which starts at 0
     
-    /* DISPLAY CORRECT LETTERS */
-    
-    cout << "Word to Guess: ";
-    
-    for (int i = 0; i < CorrectLetters.size(); i++)
+    do
     {
-        cout << CorrectLetters[i];
+        /* DISPLAY CORRECT LETTERS */
+        
+        cout << "Word to Guess: ";
+        
+        for (int i = 0; i < CorrectLetters.size(); i++)
+        {
+            cout << CorrectLetters[i];
+        }
+        
+        cout << "\n\nGuess one letter: ";
+        
+        cin >> Input;
+        cin.ignore();// IGNORE NEWLINE AFTER CIN >>
+        
+        /* SEEIFLETTERGUESSEDISINWORD WILL RETURN A TRUE IF LETTER IS FOUND, ONLY INCREMENT COUNTER IF LETTER ISN'T FOUND */
+        /* IT ALSO HAS A REFERENCE PARAMETER THAT RETURNS THE POSITION OF A LETTER FOUND, IF IT IS FOUND */
+        
+        if (!SeeIfLetterGuessedIsInWord(Input, WordToGuess, PositionOfFoundLetter))
+        {
+            NumberOfIncorrectGuesses++;
+        }
+        
+        if (PositionOfFoundLetter > -1)
+        {
+            InsertCorrectLetterInCorrectLetterVector(WordToGuess, PositionOfFoundLetter, CorrectLetters);
+        }
+        
+        /* DISPLAY CORRECT LETTERS */
+        
+        if (NumberOfIncorrectGuesses > 0)
+        {
+            TemporaryIndicationOfIncorrectGuess(NumberOfIncorrectGuesses);
+        }
+        
+        cout << "\n";
     }
-    
-    cout << "\n\nGuess one letter: ";
-    
-    cin >> Input;
-    cin.ignore();// IGNORE NEWLINE AFTER CIN >>
-    
+    while (NumberOfIncorrectGuesses <= 7);
     
 }
 
-void TemporaryIndicationOfIncorrectGuess(int NumOfIncorrectGuesses)
+bool SeeIfLetterGuessedIsInWord(const char &Input, const vector <char> &WordToGuess, int &PositionOfFoundLetter)
+{
+    for (int i = 0; i < WordToGuess.size(); i++ )
+    {
+        /* CHECKING TO SEE IF LETTER IS ANYWHERE IN WORDTOGUESS, BY ITERATING THROUGH IT */
+        
+        if (toupper(Input) == WordToGuess[i])
+        {
+            PositionOfFoundLetter = i;
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+void InsertCorrectLetterInCorrectLetterVector(const vector <char> &WordToGuess, const int &PositionOfFoundLetter, vector <char> &CorrectLetters)
+{
+    CorrectLetters[PositionOfFoundLetter * 2] = WordToGuess[PositionOfFoundLetter];
+}
+
+void TemporaryIndicationOfIncorrectGuess(const int NumOfIncorrectGuesses)
 {
     cout << "Incorrect guesses: ";
     
