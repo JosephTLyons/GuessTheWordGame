@@ -19,6 +19,9 @@ void TemporaryIndicationOfIncorrectGuess(const int NumOfIncorrectGuesses);//to b
  DISPLAY ALL LETTERS USED
  
  CODE GAME TO END IF GUESSED ALL LETTERS - WIN
+ -one method could be sending WordToBeGuessed off to a function that checks for '_', if no more are left, word has been guessed
+ -another method would be if
+ 
  CODE GAM TO END IF TOO MANY XS COME UP - END
  
  FIX SPACING IN OUTPUT
@@ -69,8 +72,8 @@ void ClearScreen()
 
 void InitializeUnderlinesAndBlankSpaces(const vector <char> &WordToGuess, vector <char> &CorrectLetters)
 {
-    char UnderLine = '_';
-    char Space     = ' ';
+    const char UnderLine = '_';
+    const char Space     = ' ';
     
     /* FILL UP CORRECTLETTERS WITH TWICE AS MANY ELEMENTS AS WORDTOGUESS, USING WORDTOGUESS.SIZE() */
     
@@ -85,14 +88,14 @@ void GuessWord(const vector <char> &WordToGuess, vector <char> &CorrectLetters)
 {
     char Input;
     int NumberOfIncorrectGuesses = 0;
-    vector <int> PositionOfFoundLetter;// EACH ELEMENT HOLDS THE POSITION OF THE LETTER GUESSED, IN RELATIONSHIP TO THE WORD BEING GUESSED
+    vector <int> PositionsOfFoundLetter;// EACH ELEMENT HOLDS THE POSITION OF THE LETTER GUESSED, IN RELATIONSHIP TO THE WORD BEING GUESSED
     
     /* PLACED SPACE BEFORE A SO I COULD USE 1 INSTEAD OF 0 IN ARRAY NOTATION TO ACCESS THE FIRST LETTER */
     char LetterPool[] = " A B C D E F G H I J K L M N O P Q R S T U V W X Y Z";
     
     do
     {
-        PositionOfFoundLetter.clear();
+        PositionsOfFoundLetter.clear();
         
         /* DISPLAY CORRECT LETTERS */
         
@@ -126,16 +129,16 @@ void GuessWord(const vector <char> &WordToGuess, vector <char> &CorrectLetters)
         RemoveGuessedLetterFromLetterPool(LetterPool, Input);
         
         /* SEEIFLETTERGUESSEDISINWORD WILL RETURN A TRUE IF LETTER IS FOUND, ONLY INCREMENT COUNTER IF LETTER ISN'T FOUND */
-        /* IT ALSO HAS A REFERENCE PARAMETER THAT RETURNS THE POSITION OF A LETTER FOUND, IF IT IS FOUND */
+        /* IT ALSO HAS A REFERENCE PARAMETER (VECTOR) THAT RETURNS THE POSITION(S) OF A LETTER FOUND, IF ANY ARE FOUND */
         
-        if (!SeeIfLetterGuessedIsInWord(Input, WordToGuess, PositionOfFoundLetter))
+        if (!SeeIfLetterGuessedIsInWord(Input, WordToGuess, PositionsOfFoundLetter))
         {
             NumberOfIncorrectGuesses++;
         }
         
-        if (PositionOfFoundLetter.size() > 0)
+        if (PositionsOfFoundLetter.size() > 0)
         {
-            InsertCorrectLetterInCorrectLetterVector(WordToGuess, PositionOfFoundLetter, CorrectLetters);
+            InsertCorrectLetterInCorrectLetterVector(WordToGuess, PositionsOfFoundLetter, CorrectLetters);
         }
         
         /* DISPLAY CORRECT LETTERS */
@@ -162,7 +165,7 @@ void RemoveGuessedLetterFromLetterPool(char LetterPool[], const char &Input)
     }
 }
 
-bool SeeIfLetterGuessedIsInWord(const char &Input, const vector <char> &WordToGuess, vector <int> &PositionOfFoundLetter)
+bool SeeIfLetterGuessedIsInWord(const char &Input, const vector <char> &WordToGuess, vector <int> &PositionsOfFoundLetter)
 {
     for (int i = 0; i < WordToGuess.size(); i++ )
     {
@@ -171,12 +174,12 @@ bool SeeIfLetterGuessedIsInWord(const char &Input, const vector <char> &WordToGu
         
         if (Input == WordToGuess[i])
         {
-            PositionOfFoundLetter.push_back(i);
+            PositionsOfFoundLetter.push_back(i);
             LetterFoundFlag = true;
         }
     }
     
-    if (PositionOfFoundLetter.size() > 0)
+    if (PositionsOfFoundLetter.size() > 0)
         return true;
     
     else
