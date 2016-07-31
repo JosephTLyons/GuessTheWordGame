@@ -8,23 +8,21 @@ void EnterWordToBeGuessed(vector <char> &WordToGuess);
 void ClearScreen();
 void InitializeUnderlinesAndBlankSpaces(const vector <char> &WordToGuess, vector <char> &CorrectLetters);
 void GuessWord(const vector <char> &WordToGuess, vector <char> &CorrectLetters);
+void TemporaryIndicationOfIncorrectGuess(const int NumOfIncorrectGuesses);//to be rewritten to display hangman
 void RemoveGuessedLetterFromLetterPool(char LetterPool[], const char &Input);
 bool SeeIfLetterGuessedIsInWord(const char &Input, const vector <char> &WordToGuess, vector <int> &PositionOfFoundLetter);
 void InsertCorrectLetterInCorrectLetterVector(const vector <char> &WordToGuess, const vector <int> &PositionOfFoundLetter, vector <char> &CorrectLetters);
-void TemporaryIndicationOfIncorrectGuess(const int NumOfIncorrectGuesses);//to be rewritten to display hangman
+bool CheckForUnderlines(const vector <char> &CorrectLetters);
 
 /*
  
- DISPLAY FULL ALPHABET AND REMOVE THEM AS THE ARE USE
- DISPLAY ALL LETTERS USED
- 
- CODE GAME TO END IF GUESSED ALL LETTERS - WIN
- -one method could be sending WordToBeGuessed off to a function that checks for '_', if no more are left, word has been guessed
- -another method would be if
- 
- CODE GAM TO END IF TOO MANY XS COME UP - END
+ DISPLAY ALL LETTERS USED?
  
  FIX SPACING IN OUTPUT
+ 
+ ADD ABILITY TO ADD SPACES (TWO WORDS OR MORE)
+ 
+ ADD LOOP TO MAIN TO PLAY GAME AGAIN
  
 */
 
@@ -92,9 +90,12 @@ void GuessWord(const vector <char> &WordToGuess, vector <char> &CorrectLetters)
     
     /* PLACED SPACE BEFORE A SO I COULD USE 1 INSTEAD OF 0 IN ARRAY NOTATION TO ACCESS THE FIRST LETTER */
     char LetterPool[] = " A B C D E F G H I J K L M N O P Q R S T U V W X Y Z";
+    bool WordIsSolved;
     
     do
     {
+        /* CLEAR VECTOR OUT */
+        
         PositionsOfFoundLetter.clear();
         
         /* DISPLAY CORRECT LETTERS */
@@ -120,6 +121,13 @@ void GuessWord(const vector <char> &WordToGuess, vector <char> &CorrectLetters)
                 cout << '\n';
         }
         
+        /* DISPLAY Xs ASSOCIATED WITH INCORRECT GUESSES */
+        
+        if (NumberOfIncorrectGuesses > 0)
+        {
+            TemporaryIndicationOfIncorrectGuess(NumberOfIncorrectGuesses);
+        }
+        
         cout << "\n\nGuess one letter: ";
         
         cin >> Input;
@@ -141,17 +149,32 @@ void GuessWord(const vector <char> &WordToGuess, vector <char> &CorrectLetters)
             InsertCorrectLetterInCorrectLetterVector(WordToGuess, PositionsOfFoundLetter, CorrectLetters);
         }
         
-        /* DISPLAY CORRECT LETTERS */
+        /* THIS FUNCTION USES THE UNDERSCORES TO CHECK TO SEE IF A WORD IS SOLVED */
+        /* IF UNDERLINES STILL EXIST, THEN THE WORD ISN'T SOLVED, IF NO UNDERLINES EXIST, THE WORD IS SOLVED */
         
-        if (NumberOfIncorrectGuesses > 0)
-        {
-            TemporaryIndicationOfIncorrectGuess(NumberOfIncorrectGuesses);
-        }
+        WordIsSolved = CheckForUnderlines(CorrectLetters);
         
         cout << "\n";
     }
-    while (NumberOfIncorrectGuesses <= 7);
+    while (NumberOfIncorrectGuesses <= 7 && WordIsSolved == false);
     
+    if (NumberOfIncorrectGuesses >= 7)
+        cout << "You lose";
+    
+    else
+        cout << "You guessed the word!";
+    
+    cout << "\n\n";
+}
+
+void TemporaryIndicationOfIncorrectGuess(const int NumOfIncorrectGuesses)
+{
+    cout << "Incorrect guesses: ";
+    
+    for (int i = 0; i < NumOfIncorrectGuesses; i++)
+    {
+        cout << "X ";
+    }
 }
 
 void RemoveGuessedLetterFromLetterPool(char LetterPool[], const char &Input)
@@ -194,12 +217,16 @@ void InsertCorrectLetterInCorrectLetterVector(const vector <char> &WordToGuess, 
     }
 }
 
-void TemporaryIndicationOfIncorrectGuess(const int NumOfIncorrectGuesses)
+bool CheckForUnderlines(const vector <char> &CorrectLetters)
 {
-    cout << "Incorrect guesses: ";
+    /* RETURN TRUE IS WORD IS SOLVED, RETURN FALSE IF WORD ISN'T SOLVED */
     
-    for (int i = 0; i <NumOfIncorrectGuesses; i++)
+    for (int i = 0; i < CorrectLetters.size(); i++)
     {
-        cout << "X ";
+        if (CorrectLetters[i] == '_')
+        {
+            return false;
+        }
     }
+    return true;
 }
