@@ -24,6 +24,8 @@ bool CheckForUnderlines(const vector <char> &CorrectLetters);
  
  ADD LOOP TO MAIN TO PLAY GAME AGAIN
  
+ ADD FUNNTION FOR DISPLAYING LETTERS OF CORRECT LETTERS?
+ 
 */
 
 int main()
@@ -34,10 +36,6 @@ int main()
     EnterWordToBeGuessed(WordToBeGuessed);
     
     InitializeUnderlinesAndBlankSpaces(WordToBeGuessed, CorrectLettersAndBlankSpaces);
-    
-    /* ADD NEWLINES TO CLEAR SCREEN */
-    
-    ClearScreen();
     
     GuessWord(WordToBeGuessed, CorrectLettersAndBlankSpaces);
 }
@@ -94,6 +92,10 @@ void GuessWord(const vector <char> &WordToGuess, vector <char> &CorrectLetters)
     
     do
     {
+        /* ADD NEWLINES TO CLEAR SCREEN */
+        
+        ClearScreen();
+        
         /* CLEAR VECTOR OUT */
         
         PositionsOfFoundLetter.clear();
@@ -156,7 +158,7 @@ void GuessWord(const vector <char> &WordToGuess, vector <char> &CorrectLetters)
         
         cout << "\n";
     }
-    while (NumberOfIncorrectGuesses <= 7 && WordIsSolved == false);
+    while (NumberOfIncorrectGuesses < 7 && WordIsSolved == false);
     
     if (NumberOfIncorrectGuesses >= 7)
         cout << "You lose";
@@ -169,7 +171,7 @@ void GuessWord(const vector <char> &WordToGuess, vector <char> &CorrectLetters)
 
 void TemporaryIndicationOfIncorrectGuess(const int NumOfIncorrectGuesses)
 {
-    cout << "Incorrect guesses: ";
+    cout << "\n\nIncorrect guesses: ";
     
     for (int i = 0; i < NumOfIncorrectGuesses; i++)
     {
