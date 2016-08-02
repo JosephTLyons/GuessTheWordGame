@@ -5,9 +5,12 @@
 using namespace std;
 
 void EnterWordToBeGuessed(vector <char> &WordToGuess);
-void ClearScreen();
 void InitializeUnderlinesAndBlankSpaces(const vector <char> &WordToGuess, vector <char> &CorrectLetters);
 void GuessWord(const vector <char> &WordToGuess, vector <char> &CorrectLetters);
+void DrawLine();
+void ClearScreen();
+void DisplayVectorContents(const vector <char> &CorrectLetters);
+void DisplayArrayContents(const char Array[]);
 void TemporaryIndicationOfIncorrectGuess(const int NumOfIncorrectGuesses);//to be rewritten to display hangman
 void RemoveGuessedLetterFromLetterPool(char LetterPool[], const char &Input);
 bool SeeIfLetterGuessedIsInWord(const char &Input, const vector <char> &WordToGuess, vector <int> &PositionOfFoundLetter);
@@ -16,28 +19,38 @@ bool CheckForUnderlines(const vector <char> &CorrectLetters);
 
 /*
  
- DISPLAY ALL LETTERS USED?
- 
  FIX SPACING IN OUTPUT
  
  ADD ABILITY TO ADD SPACES (TWO WORDS OR MORE)
  
  ADD LOOP TO MAIN TO PLAY GAME AGAIN
  
- ADD FUNNTION FOR DISPLAYING LETTERS OF CORRECT LETTERS?
+ DISPLAY FULL WORD WHEN DONE
  
 */
 
 int main()
 {
+    char RepeatGame;
     vector <char> WordToBeGuessed;
     vector <char> CorrectLettersAndBlankSpaces;
     
-    EnterWordToBeGuessed(WordToBeGuessed);
-    
-    InitializeUnderlinesAndBlankSpaces(WordToBeGuessed, CorrectLettersAndBlankSpaces);
-    
-    GuessWord(WordToBeGuessed, CorrectLettersAndBlankSpaces);
+    do
+    {
+        EnterWordToBeGuessed(WordToBeGuessed);
+        
+        InitializeUnderlinesAndBlankSpaces(WordToBeGuessed, CorrectLettersAndBlankSpaces);
+        
+        GuessWord(WordToBeGuessed, CorrectLettersAndBlankSpaces);
+        
+        cout << "Would you like to play again? Y/N: ";
+        cin >> RepeatGame;
+        
+        cin.ignore();//ignore newline generated from last CIN >> statement
+        
+        DrawLine();
+    }
+    while (toupper(RepeatGame) == 'Y');
 }
 
 void EnterWordToBeGuessed(vector <char> &WordToGuess)
@@ -52,17 +65,6 @@ void EnterWordToBeGuessed(vector <char> &WordToGuess)
     {
         WordToGuess.push_back(toupper(Input));
         cin.get(Input);
-    }
-}
-
-void ClearScreen()
-{
-    /* ADD 30 NEWLINES TO CLEAR SCREEN SO NEXT PLAYER CAN'T SEE PREVIOUSLY ENTERED WORD */
-    /* NUMBER CAN BE CHANGED AT ANY TIME, SIMPLY ADJUST i CONDITION */
-    
-    for (int i = 0; i < 30; i++)
-    {
-        cout << "\n";
     }
 }
 
@@ -96,6 +98,10 @@ void GuessWord(const vector <char> &WordToGuess, vector <char> &CorrectLetters)
         
         ClearScreen();
         
+        /* DRAW SEPARATING LINE */
+        
+        DrawLine();
+        
         /* CLEAR VECTOR OUT */
         
         PositionsOfFoundLetter.clear();
@@ -104,24 +110,13 @@ void GuessWord(const vector <char> &WordToGuess, vector <char> &CorrectLetters)
         
         cout << "Word to Guess: ";
         
-        for (int i = 0; i < CorrectLetters.size(); i++)
-        {
-            cout << CorrectLetters[i];
-        }
+        DisplayVectorContents(CorrectLetters);
         
         /* DISPLAY LETTER POOL TO GUESS FROM */
         
         cout << "\n\nLetter pool: \n\n";
         
-        for (int i = 1; LetterPool[i] != 0; i++)
-        {
-            cout << LetterPool[i];
-            
-            /* ADD NEWLINE EVERY 4 LETTERS */
-            
-            if (i % 8 == 0)
-                cout << '\n';
-        }
+        DisplayArrayContents(LetterPool);
         
         /* DISPLAY Xs ASSOCIATED WITH INCORRECT GUESSES */
         
@@ -158,7 +153,7 @@ void GuessWord(const vector <char> &WordToGuess, vector <char> &CorrectLetters)
         
         cout << "\n";
     }
-    while (NumberOfIncorrectGuesses < 7 && WordIsSolved == false);
+    while ((NumberOfIncorrectGuesses < 7) && (WordIsSolved == false));
     
     if (NumberOfIncorrectGuesses >= 7)
         cout << "You lose";
@@ -167,6 +162,43 @@ void GuessWord(const vector <char> &WordToGuess, vector <char> &CorrectLetters)
         cout << "You guessed the word!";
     
     cout << "\n\n";
+}
+
+void DrawLine()
+{
+    cout << "\n*************\n\n";
+}
+
+void ClearScreen()
+{
+    /* ADD 60 NEWLINES TO CLEAR SCREEN SO NEXT PLAYER CAN'T SEE PREVIOUSLY ENTERED WORD */
+    /* NUMBER CAN BE CHANGED AT ANY TIME, SIMPLY ADJUST i CONDITION */
+    
+    for (int i = 0; i < 60; i++)
+    {
+        cout << "\n";
+    }
+}
+
+void DisplayVectorContents(const vector <char> &Vect)
+{
+    for (int i = 0; i < Vect.size(); i++)
+    {
+        cout << Vect[i];
+    }
+}
+
+void DisplayArrayContents(const char Array[])
+{
+    for (int i = 1; Array[i] != 0; i++)
+    {
+        cout << Array[i];
+        
+        /* ADD NEWLINE EVERY 4 LETTERS */
+        
+        if (i % 8 == 0)
+            cout << '\n';
+    }
 }
 
 void TemporaryIndicationOfIncorrectGuess(const int NumOfIncorrectGuesses)
