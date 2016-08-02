@@ -23,9 +23,9 @@ bool CheckForUnderlines(const vector <char> &CorrectLetters);
  
  ADD ABILITY TO ADD SPACES (TWO WORDS OR MORE)
  
- ADD LOOP TO MAIN TO PLAY GAME AGAIN
- 
  DISPLAY FULL WORD WHEN DONE
+ 
+ CHANGE Xs TO THE HANGMAN DRAWING
  
 */
 
