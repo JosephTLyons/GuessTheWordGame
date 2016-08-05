@@ -77,7 +77,12 @@ void InitializeUnderlinesAndBlankSpaces(const vector <char> &WordToGuess, vector
     
     for (int i = 0; i < WordToGuess.size(); i++)
     {
-        CorrectLetters.push_back(UnderLine);
+        /* SKIP UNDERSCORE IF THE SPOT IS A SPACEBAR BETWEEN WORDS, ONLY PUT UNDERLINE IF ITS NOT A SPACE CHARACTER */
+        
+        if (WordToGuess[i] != ' ')
+        {
+            CorrectLetters.push_back(UnderLine);
+        }
         CorrectLetters.push_back(Space);
     }
 }
