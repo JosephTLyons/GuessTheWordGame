@@ -21,11 +21,11 @@ bool CheckForUnderlines(const vector <char> &CorrectLetters);
  
  FIX SPACING IN OUTPUT
  
- ADD ABILITY TO ADD SPACES (TWO WORDS OR MORE)
- 
  DISPLAY FULL WORD WHEN DONE
  
  CHANGE Xs TO THE HANGMAN DRAWING
+ 
+ CHANGE DOUBLE SPACING TO SINGLE SPACING?
  
 */
 
@@ -83,6 +83,12 @@ void InitializeUnderlinesAndBlankSpaces(const vector <char> &WordToGuess, vector
         {
             CorrectLetters.push_back(UnderLine);
         }
+        
+        /* IF SPOT IS A SPACEBAR, ADD ANOTHER */
+        
+        else
+            CorrectLetters.push_back(Space);
+        
         CorrectLetters.push_back(Space);
     }
 }
@@ -199,7 +205,7 @@ void DisplayArrayContents(const char Array[])
     {
         cout << Array[i];
         
-        /* ADD NEWLINE EVERY 4 LETTERS */
+        /* ADD NEWLINE EVERY 4 LETTERS - EVERY 8 BECAUSE OF SPACING BETWEEEN LETERS MAKES IT DOUBLE LENGTH */
         
         if (i % 8 == 0)
             cout << '\n';
@@ -231,13 +237,11 @@ bool SeeIfLetterGuessedIsInWord(const char &Input, const vector <char> &WordToGu
 {
     for (int i = 0; i < WordToGuess.size(); i++ )
     {
-        bool LetterFoundFlag;
         /* CHECKING TO SEE IF LETTER IS ANYWHERE IN WORDTOGUESS, BY ITERATING THROUGH IT */
         
         if (Input == WordToGuess[i])
         {
             PositionsOfFoundLetter.push_back(i);
-            LetterFoundFlag = true;
         }
     }
     
