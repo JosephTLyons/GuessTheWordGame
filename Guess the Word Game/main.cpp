@@ -21,11 +21,11 @@ bool CheckForUnderlines(const vector <char> &CorrectLetters);
  
  FIX SPACING IN OUTPUT
  
- DISPLAY FULL WORD WHEN DONE
- 
  CHANGE Xs TO THE HANGMAN DRAWING
  
  CHANGE DOUBLE SPACING TO SINGLE SPACING?
+ 
+ ERROR WHEN REPEATING GAME ANOTHER TIME - WORD TO GUESS IS WRONG
  
 */
 
@@ -105,6 +105,7 @@ void GuessWord(const vector <char> &WordToGuess, vector <char> &CorrectLetters)
     
     do
     {
+        
         /* ADD NEWLINES TO CLEAR SCREEN */
         
         ClearScreen();
@@ -117,7 +118,7 @@ void GuessWord(const vector <char> &WordToGuess, vector <char> &CorrectLetters)
         
         PositionsOfFoundLetter.clear();
         
-        /* DISPLAY CORRECT LETTERS */
+        /* DISPLAY CORRECT LETTERS AND UNDERLINES */
         
         cout << "Word to Guess: ";
         
@@ -145,6 +146,7 @@ void GuessWord(const vector <char> &WordToGuess, vector <char> &CorrectLetters)
         RemoveGuessedLetterFromLetterPool(LetterPool, Input);
         
         /* SEEIFLETTERGUESSEDISINWORD WILL RETURN A TRUE IF LETTER IS FOUND, ONLY INCREMENT COUNTER IF LETTER ISN'T FOUND */
+        
         /* IT ALSO HAS A REFERENCE PARAMETER (VECTOR) THAT RETURNS THE POSITION(S) OF A LETTER FOUND, IF ANY ARE FOUND */
         
         if (!SeeIfLetterGuessedIsInWord(Input, WordToGuess, PositionsOfFoundLetter))
@@ -158,6 +160,7 @@ void GuessWord(const vector <char> &WordToGuess, vector <char> &CorrectLetters)
         }
         
         /* THIS FUNCTION USES THE UNDERSCORES TO CHECK TO SEE IF A WORD IS SOLVED */
+        
         /* IF UNDERLINES STILL EXIST, THEN THE WORD ISN'T SOLVED, IF NO UNDERLINES EXIST, THE WORD IS SOLVED */
         
         WordIsSolved = CheckForUnderlines(CorrectLetters);
@@ -167,10 +170,20 @@ void GuessWord(const vector <char> &WordToGuess, vector <char> &CorrectLetters)
     while ((NumberOfIncorrectGuesses < 7) && (WordIsSolved == false));
     
     if (NumberOfIncorrectGuesses >= 7)
-        cout << "You lose";
+    {
+        cout << "You lose!";
+    }
     
     else
-        cout << "You guessed the word!";
+    {
+        /* DISPLAY CORRECT LETTERS AND UNDERLINES */
+        
+        cout << "You Won!";
+    }
+    
+    cout << "\n\nWord to Guess: ";
+    
+    DisplayVectorContents(CorrectLetters);
     
     cout << "\n\n";
 }
