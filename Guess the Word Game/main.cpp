@@ -33,9 +33,7 @@ int main()
     do
     {
         EnterWordToBeGuessed(WordToBeGuessed);
-        
         InitializeUnderlinesAndBlankSpaces(WordToBeGuessed, CorrectLettersAndBlankSpaces);
-        
         GuessWord(WordToBeGuessed, CorrectLettersAndBlankSpaces);
         
         cout << "Would you like to play again? Y/N: ";
@@ -103,33 +101,19 @@ void GuessWord(const vector <char> &WordToGuess, vector <char> &CorrectLetters)
     
     do
     {
-        
-        /* ADD NEWLINES TO CLEAR SCREEN */
-        
         clearScreen();
-        
-        /* DRAW SEPARATING LINE */
-        
         drawLine();
-        
-        /* CLEAR VECTOR OUT */
-        
         PositionsOfFoundLetter.clear();
-        
-        /* DISPLAY CORRECT LETTERS AND UNDERLINES */
         
         cout << "Word to Guess: ";
         
         displayVectorContents(CorrectLetters);
-        
-        /* DISPLAY LETTER POOL TO GUESS FROM */
         
         cout << "\n\nLetter pool: \n\n";
         
         displayArrayContents(LetterPool);
         
         /* DISPLAY Xs ASSOCIATED WITH INCORRECT GUESSES */
-        
         if (NumberOfIncorrectGuesses > 0)
         {
             TemporaryIndicationOfIncorrectGuess(NumberOfIncorrectGuesses);
