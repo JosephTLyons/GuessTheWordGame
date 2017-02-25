@@ -16,12 +16,12 @@ void drawLine()
     cout << "\n*************\n\n";
 }
 
+// ADD 60 NEWLINES TO CLEAR SCREEN SO NEXT PLAYER CAN'T SEE PREVIOUSLY ENTERED WORD
 void clearScreen()
 {
-    /* ADD 60 NEWLINES TO CLEAR SCREEN SO NEXT PLAYER CAN'T SEE PREVIOUSLY ENTERED WORD */
-    /* NUMBER CAN BE CHANGED AT ANY TIME, SIMPLY ADJUST i CONDITION */
+    int numberOfNewlines = 60;
     
-    for (int i = 0; i < 60; i++)
+    for (int i = 0; i < numberOfNewlines; i++)
     {
         cout << "\n";
     }
