@@ -1,16 +1,13 @@
 #include <iostream>
 #include <ctype.h> //for toupper functions
 #include <vector>  //for using vectors
+#include "Misc Functions.hpp"
 
 using namespace std;
 
 void EnterWordToBeGuessed(vector <char> &WordToGuess);
 void InitializeUnderlinesAndBlankSpaces(const vector <char> &WordToGuess, vector <char> &CorrectLetters);
 void GuessWord(const vector <char> &WordToGuess, vector <char> &CorrectLetters);
-void DrawLine();
-void ClearScreen();
-void DisplayVectorContents(const vector <char> &CorrectLetters);
-void DisplayArrayContents(const char Array[]);
 void TemporaryIndicationOfIncorrectGuess(const int NumOfIncorrectGuesses);//to be rewritten to display hangman
 void RemoveGuessedLetterFromLetterPool(char LetterPool[], const char &Input);
 bool SeeIfLetterGuessedIsInWord(const char &Input, const vector <char> &WordToGuess, vector <int> &PositionOfFoundLetter);
@@ -49,7 +46,7 @@ int main()
         
         cin.ignore();//ignore newline generated from last CIN >> statement
         
-        DrawLine();
+        drawLine();
     }
     while (toupper(RepeatGame) == 'Y');
 }
@@ -109,11 +106,11 @@ void GuessWord(const vector <char> &WordToGuess, vector <char> &CorrectLetters)
         
         /* ADD NEWLINES TO CLEAR SCREEN */
         
-        ClearScreen();
+        clearScreen();
         
         /* DRAW SEPARATING LINE */
         
-        DrawLine();
+        drawLine();
         
         /* CLEAR VECTOR OUT */
         
@@ -123,13 +120,13 @@ void GuessWord(const vector <char> &WordToGuess, vector <char> &CorrectLetters)
         
         cout << "Word to Guess: ";
         
-        DisplayVectorContents(CorrectLetters);
+        displayVectorContents(CorrectLetters);
         
         /* DISPLAY LETTER POOL TO GUESS FROM */
         
         cout << "\n\nLetter pool: \n\n";
         
-        DisplayArrayContents(LetterPool);
+        displayArrayContents(LetterPool);
         
         /* DISPLAY Xs ASSOCIATED WITH INCORRECT GUESSES */
         
@@ -184,46 +181,9 @@ void GuessWord(const vector <char> &WordToGuess, vector <char> &CorrectLetters)
     
     cout << "\n\nWord to Guess: ";
     
-    DisplayVectorContents(CorrectLetters);
+    displayVectorContents(CorrectLetters);
     
     cout << "\n\n";
-}
-
-void DrawLine()
-{
-    cout << "\n*************\n\n";
-}
-
-void ClearScreen()
-{
-    /* ADD 60 NEWLINES TO CLEAR SCREEN SO NEXT PLAYER CAN'T SEE PREVIOUSLY ENTERED WORD */
-    /* NUMBER CAN BE CHANGED AT ANY TIME, SIMPLY ADJUST i CONDITION */
-    
-    for (int i = 0; i < 60; i++)
-    {
-        cout << "\n";
-    }
-}
-
-void DisplayVectorContents(const vector <char> &Vect)
-{
-    for (int i = 0; i < Vect.size(); i++)
-    {
-        cout << Vect[i];
-    }
-}
-
-void DisplayArrayContents(const char Array[])
-{
-    for (int i = 1; Array[i] != 0; i++)
-    {
-        cout << Array[i];
-        
-        /* ADD NEWLINE EVERY 4 LETTERS - EVERY 8 BECAUSE OF SPACING BETWEEEN LETERS MAKES IT DOUBLE LENGTH */
-        
-        if (i % 8 == 0)
-            cout << '\n';
-    }
 }
 
 void TemporaryIndicationOfIncorrectGuess(const int NumOfIncorrectGuesses)
