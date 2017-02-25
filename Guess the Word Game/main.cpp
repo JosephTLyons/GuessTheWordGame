@@ -25,8 +25,6 @@ bool CheckForUnderlines(const vector <char> &CorrectLetters);
  
  CHANGE DOUBLE SPACING TO SINGLE SPACING?
  
- ERROR WHEN REPEATING GAME ANOTHER TIME - WORD TO GUESS IS WRONG
- 
 */
 
 int main()
@@ -45,6 +43,9 @@ int main()
         
         cout << "Would you like to play again? Y/N: ";
         cin >> RepeatGame;
+        
+        WordToBeGuessed.clear();
+        CorrectLettersAndBlankSpaces.clear();
         
         cin.ignore();//ignore newline generated from last CIN >> statement
         
