@@ -18,8 +18,7 @@ int main()
     {
         gameInstance.startGame();
         repeat = repeatGame();
-        gameInstance.resetGame();
         drawLine();
     }
-    while (repeatGame());
+    while(repeat);
 }

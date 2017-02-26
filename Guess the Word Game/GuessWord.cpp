@@ -11,11 +11,6 @@
 #include "GuessWord.hpp"
 #include "Misc Functions.hpp"
 
-GuessWord::GuessWord()
-{
-    resetGame();
-}
-
 void GuessWord::enterWordToBeGuessed()
 {
     char input;
@@ -62,6 +57,8 @@ void GuessWord::startGame()
     /* PLACED SPACE BEFORE A SO I COULD USE 1 INSTEAD OF 0 IN ARRAY NOTATION TO ACCESS THE FIRST LETTER */
     char letterPool[] = " A B C D E F G H I J K L M N O P Q R S T U V W X Y Z";
     bool wordIsSolved;
+    
+    resetGame();
     
     do
     {

@@ -23,11 +23,6 @@ private:
     
     int numberOfIncorrectGuesses;
     
-public:
-    
-    GuessWord();
-    
-    void startGame();
     void enterWordToBeGuessed();
     void initializeUnderlinesAndBlankSpaces();
     void temporaryIndicationOfIncorrectGuess() const;
@@ -37,6 +32,11 @@ public:
     bool checkForUnderlines();
     void dispalyWinOrLoseStatus();
     void resetGame();
+
+    
+public:
+    
+    void startGame();
 };
 
 #endif /* GuessWord_hpp */
