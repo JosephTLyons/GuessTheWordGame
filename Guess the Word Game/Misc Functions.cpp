@@ -47,3 +47,10 @@ void displayArrayContents(const char array[])
             cout << '\n';
     }
 }
+
+void repeatGame(char &repeatGameOrNot)
+{
+    cout << "Would you like to play again? Y/N: ";
+    cin >> repeatGameOrNot;
+    cin.ignore();//ignore newline generated from last cin >> statement
+}

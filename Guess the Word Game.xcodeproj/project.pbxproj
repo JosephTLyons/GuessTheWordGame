@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		99133AEF1D4B3E94002507BA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99133AEE1D4B3E94002507BA /* main.cpp */; };
 		99BF7E851E61698A00BB2037 /* Misc Functions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99BF7E831E61698A00BB2037 /* Misc Functions.cpp */; };
+		99CC0A6B1E62C1BC002CC50F /* GuessWord.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99CC0A691E62C1BC002CC50F /* GuessWord.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +29,8 @@
 		99133AEE1D4B3E94002507BA /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		99BF7E831E61698A00BB2037 /* Misc Functions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "Misc Functions.cpp"; sourceTree = "<group>"; };
 		99BF7E841E61698A00BB2037 /* Misc Functions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "Misc Functions.hpp"; sourceTree = "<group>"; };
+		99CC0A691E62C1BC002CC50F /* GuessWord.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GuessWord.cpp; sourceTree = "<group>"; };
+		99CC0A6A1E62C1BC002CC50F /* GuessWord.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GuessWord.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +64,8 @@
 			isa = PBXGroup;
 			children = (
 				99133AEE1D4B3E94002507BA /* main.cpp */,
+				99CC0A6A1E62C1BC002CC50F /* GuessWord.hpp */,
+				99CC0A691E62C1BC002CC50F /* GuessWord.cpp */,
 				99BF7E841E61698A00BB2037 /* Misc Functions.hpp */,
 				99BF7E831E61698A00BB2037 /* Misc Functions.cpp */,
 			);
@@ -125,6 +130,7 @@
 			files = (
 				99BF7E851E61698A00BB2037 /* Misc Functions.cpp in Sources */,
 				99133AEF1D4B3E94002507BA /* main.cpp in Sources */,
+				99CC0A6B1E62C1BC002CC50F /* GuessWord.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
