@@ -31,18 +31,15 @@ void GuessWord::initializeUnderlinesAndBlankSpaces()
     const char space     = ' ';
     
     /* FILL UP CORRECTLETTERS WITH TWICE AS MANY ELEMENTS AS WORDTOGUESS, USING WORDTOGUESS.SIZE() */
-    
     for (int i = 0; i < wordToBeGuessed.size(); i++)
     {
         /* SKIP UNDERSCORE IF THE SPOT IS A SPACEBAR BETWEEN WORDS, ONLY PUT UNDERLINE IF ITS NOT A SPACE CHARACTER */
-        
         if (wordToBeGuessed[i] != ' ')
         {
             correctLettersAndBlankSpaces.push_back(underLine);
         }
         
         /* IF SPOT IS A SPACEBAR, ADD ANOTHER */
-        
         else
             correctLettersAndBlankSpaces.push_back(space);
         
@@ -103,9 +100,7 @@ void GuessWord::startGame()
         }
         
         /* THIS FUNCTION USES THE UNDERSCORES TO CHECK TO SEE IF A WORD IS SOLVED */
-        
         /* IF UNDERLINES STILL EXIST, THEN THE WORD ISN'T SOLVED, IF NO UNDERLINES EXIST, THE WORD IS SOLVED */
-        
         wordIsSolved = checkForUnderlines();
         
         cout << "\n";
@@ -147,7 +142,6 @@ bool GuessWord::seeIfLetterGuessedIsInWord(const char &input)
     for (int i = 0; i < wordToBeGuessed.size(); i++ )
     {
         /* CHECKING TO SEE IF LETTER IS ANYWHERE IN WORDTOGUESS, BY ITERATING THROUGH IT */
-        
         if (input == wordToBeGuessed[i])
         {
             positionOfFoundLetter.push_back(i);
@@ -170,11 +164,10 @@ void GuessWord::insertCorrectLetterInCorrectLetterVector()
     }
 }
 
+// If any underlines are present, word isn't solved
+// Return true if word is solved, else return false for word isn't solved
 bool GuessWord::checkForUnderlines()
 {
-    // If any underlines are present, word isn't solved
-    // Return true if word is solved, else return false for word isn't solved
-    
     for (int i = 0; i < correctLettersAndBlankSpaces.size(); i++)
     {
         if (correctLettersAndBlankSpaces[i] == '_')
@@ -201,9 +194,11 @@ void GuessWord::dispalyWinOrLoseStatus()
 
 void GuessWord::resetGame()
 {
+    numberOfIncorrectGuesses = 0;
+    
     wordToBeGuessed.clear();
     correctLettersAndBlankSpaces.clear();
-    numberOfIncorrectGuesses = 0;
+    positionOfFoundLetter.clear();
     
     enterWordToBeGuessed();
     initializeUnderlinesAndBlankSpaces();

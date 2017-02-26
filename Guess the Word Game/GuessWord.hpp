@@ -17,11 +17,13 @@ class GuessWord
 {
 private:
     
+    int numberOfIncorrectGuesses;
     vector<char> wordToBeGuessed;
     vector<char> correctLettersAndBlankSpaces;
-    vector<int> positionOfFoundLetter;// EACH ELEMENT HOLDS THE POSITION OF THE LETTER GUESSED, IN RELATIONSHIP TO THE WORD BEING GUESSED
     
-    int numberOfIncorrectGuesses;
+    // Each element holds the position of the letter guessed,
+    // In relationship to the word being guessed
+    vector<int> positionOfFoundLetter;
     
     void enterWordToBeGuessed();
     void initializeUnderlinesAndBlankSpaces();
@@ -32,7 +34,6 @@ private:
     bool checkForUnderlines();
     void dispalyWinOrLoseStatus();
     void resetGame();
-
     
 public:
     
