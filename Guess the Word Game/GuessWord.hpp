@@ -30,7 +30,7 @@ public:
     void enterWordToBeGuessed();
     void initializeUnderlinesAndBlankSpaces();
     void startGame();
-    void temporaryIndicationOfIncorrectGuess();//to be rewritten to display hangman
+    void temporaryIndicationOfIncorrectGuess() const;
     void removeGuessedLetterFromLetterPool(char letterPool[], const char &input);
     bool seeIfLetterGuessedIsInWord(const char &input);
     void insertCorrectLetterInCorrectLetterVector();

@@ -13,6 +13,8 @@
 
 GuessWord::GuessWord()
 {
+    wordToBeGuessed.clear();
+    correctLettersAndBlankSpaces.clear();
     numberOfIncorrectGuesses = 0;
 }
 
@@ -67,7 +69,6 @@ void GuessWord::startGame()
     {
         clearScreen();
         drawLine();
-        
         positionOfFoundLetter.clear();
         
         cout << "Word to Guess: ";
@@ -125,7 +126,7 @@ void GuessWord::startGame()
     cout << "\n\n";
 }
 
-void GuessWord::temporaryIndicationOfIncorrectGuess()
+void GuessWord::temporaryIndicationOfIncorrectGuess() const
 {
     cout << "\n\nIncorrect guesses: ";
     
@@ -169,13 +170,15 @@ void GuessWord::insertCorrectLetterInCorrectLetterVector()
 {
     for (int i = 0; i < positionOfFoundLetter.size(); i++)
     {
-        correctLettersAndBlankSpaces[positionOfFoundLetter[i] * 2] = wordToBeGuessed[positionOfFoundLetter[i]];
+        correctLettersAndBlankSpaces[positionOfFoundLetter[i] * 2] =
+        wordToBeGuessed[positionOfFoundLetter[i]];
     }
 }
 
 bool GuessWord::checkForUnderlines()
 {
-    /* RETURN TRUE IS WORD IS SOLVED, RETURN FALSE IF WORD ISN'T SOLVED */
+    // If any underlines are present, word isn't solved
+    // Return true if word is solved, else return false for word isn't solved
     
     for (int i = 0; i < correctLettersAndBlankSpaces.size(); i++)
     {
@@ -197,8 +200,6 @@ void GuessWord::dispalyWinOrLoseStatus()
     
     else
     {
-        /* DISPLAY CORRECT LETTERS AND UNDERLINES */
-        
         cout << "You Won!";
     }
 }
