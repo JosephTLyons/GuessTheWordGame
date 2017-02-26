@@ -27,9 +27,9 @@ public:
     
     GuessWord();
     
+    void startGame();
     void enterWordToBeGuessed();
     void initializeUnderlinesAndBlankSpaces();
-    void startGame();
     void temporaryIndicationOfIncorrectGuess() const;
     void removeGuessedLetterFromLetterPool(char letterPool[], const char &input);
     bool seeIfLetterGuessedIsInWord(const char &input);

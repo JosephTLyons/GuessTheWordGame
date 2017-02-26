@@ -48,9 +48,21 @@ void displayArrayContents(const char array[])
     }
 }
 
-void repeatGame(char &repeatGameOrNot)
+bool repeatGame()
 {
+    char repeatGameOrNot;
+    
     cout << "Would you like to play again? Y/N: ";
     cin >> repeatGameOrNot;
     cin.ignore();//ignore newline generated from last cin >> statement
+    
+    if(toupper(repeatGameOrNot) == 'Y')
+    {
+        return true;
+    }
+    
+    else
+    {
+        return false;
+    }
 }

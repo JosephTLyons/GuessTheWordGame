@@ -11,17 +11,15 @@ using namespace std;
 
 int main()
 {
+    bool repeat;
     GuessWord gameInstance;
-    char repeatGameOrNot;
     
     do
     {
-        gameInstance.enterWordToBeGuessed();
-        gameInstance.initializeUnderlinesAndBlankSpaces();
         gameInstance.startGame();
-        repeatGame(repeatGameOrNot);
+        repeat = repeatGame();
         gameInstance.resetGame();
         drawLine();
     }
-    while (toupper(repeatGameOrNot) == 'Y');
+    while (repeatGame());
 }

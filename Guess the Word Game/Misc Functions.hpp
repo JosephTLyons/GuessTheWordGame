@@ -16,6 +16,6 @@ void drawLine();
 void clearScreen();
 void displayVectorContents(const vector <char> &Vect);
 void displayArrayContents(const char Array[]);
-void repeatGame(char &repeatGameOrNot);
+bool repeatGame();
 
 #endif /* Misc_Functions_hpp */

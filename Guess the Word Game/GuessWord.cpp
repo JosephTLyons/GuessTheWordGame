@@ -13,9 +13,7 @@
 
 GuessWord::GuessWord()
 {
-    wordToBeGuessed.clear();
-    correctLettersAndBlankSpaces.clear();
-    numberOfIncorrectGuesses = 0;
+    resetGame();
 }
 
 void GuessWord::enterWordToBeGuessed()
@@ -209,4 +207,7 @@ void GuessWord::resetGame()
     wordToBeGuessed.clear();
     correctLettersAndBlankSpaces.clear();
     numberOfIncorrectGuesses = 0;
+    
+    enterWordToBeGuessed();
+    initializeUnderlinesAndBlankSpaces();
 }
