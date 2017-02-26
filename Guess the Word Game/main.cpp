@@ -53,7 +53,6 @@ void enterWordToBeGuessed(vector<char> &wordToGuess)
     char input;
     
     cout << "Enter word to be guessed: ";
-    
     cin.get(input);
     
     while (input != '\n')
@@ -102,6 +101,7 @@ void guessWord(const vector<char> &wordToGuess, vector<char> &correctLetters)
     {
         clearScreen();
         drawLine();
+        
         positionsOfFoundLetter.clear();
         
         cout << "Word to Guess: ";
@@ -228,5 +228,6 @@ bool checkForUnderlines(const vector<char> &correctLetters)
             return false;
         }
     }
+    
     return true;
 }
