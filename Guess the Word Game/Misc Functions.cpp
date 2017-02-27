@@ -11,11 +11,6 @@
 
 using namespace std;
 
-void drawLine()
-{
-    cout << "\n*************\n\n";
-}
-
 // ADD 60 NEWLINES TO CLEAR SCREEN SO NEXT PLAYER CAN'T SEE PREVIOUSLY ENTERED WORD
 void clearScreen()
 {
@@ -27,12 +22,9 @@ void clearScreen()
     }
 }
 
-void displayVectorContents(const vector <char> &vect)
+void drawLine()
 {
-    for (int i = 0; i < vect.size(); i++)
-    {
-        cout << vect[i];
-    }
+    cout << "\n*************\n\n";
 }
 
 void displayArrayContents(const char array[])
@@ -45,6 +37,14 @@ void displayArrayContents(const char array[])
         
         if (i % 8 == 0)
             cout << '\n';
+    }
+}
+
+void displayVectorContents(const vector <char> &vect)
+{
+    for (int i = 0; i < vect.size(); i++)
+    {
+        cout << vect[i];
     }
 }
 

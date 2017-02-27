@@ -12,10 +12,10 @@
 #include <vector>
 using namespace std;
 
-void drawLine();
 void clearScreen();
-void displayVectorContents(const vector <char> &vect);
+void drawLine();
 void displayArrayContents(const char array[]);
+void displayVectorContents(const vector <char> &vect);
 bool repeatGame();
 
 #endif /* Misc_Functions_hpp */
