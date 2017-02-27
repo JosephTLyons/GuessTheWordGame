@@ -11,7 +11,7 @@
 
 using namespace std;
 
-// ADD 60 NEWLINES TO CLEAR SCREEN SO NEXT PLAYER CAN'T SEE PREVIOUSLY ENTERED WORD
+// Add 60 newlines to clear screen so next player can't see previously entered word
 void clearScreen()
 {
     int numberOfNewlines = 60;
@@ -28,18 +28,17 @@ void displayArrayContents(const char array[])
     {
         cout << array[i];
         
-        /* ADD NEWLINE EVERY 4 LETTERS - EVERY 8 BECAUSE OF SPACING BETWEEEN LETERS MAKES IT DOUBLE LENGTH */
-        
+        // Add newline every 4 letters - mod by 8 due to spacing between letters
         if (i % 8 == 0)
             cout << '\n';
     }
 }
 
-void displayVectorContents(const vector <char> &vect)
+void displayVectorContents(const vector <char> &vector)
 {
-    for (int i = 0; i < vect.size(); i++)
+    for (int i = 0; i < vector.size(); i++)
     {
-        cout << vect[i];
+        cout << vector[i];
     }
 }
 
@@ -54,7 +53,9 @@ bool repeatGame()
     
     cout << "Would you like to play again? Y/N: ";
     cin >> repeatGameOrNot;
-    cin.ignore();//ignore newline generated from last cin >> statement
+    
+    //ignore newline generated from last cin >> statement
+    cin.ignore();
     
     if(toupper(repeatGameOrNot) == 'Y')
     {

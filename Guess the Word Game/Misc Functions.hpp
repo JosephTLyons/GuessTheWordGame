@@ -14,7 +14,7 @@ using namespace std;
 
 void clearScreen();
 void displayArrayContents(const char array[]);
-void displayVectorContents(const vector <char> &vect);
+void displayVectorContents(const vector <char> &vector);
 void drawLine();
 bool repeatGame();
 
