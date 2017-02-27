@@ -13,9 +13,9 @@
 using namespace std;
 
 void clearScreen();
-void drawLine();
 void displayArrayContents(const char array[]);
 void displayVectorContents(const vector <char> &vect);
+void drawLine();
 bool repeatGame();
 
 #endif /* Misc_Functions_hpp */

@@ -22,11 +22,6 @@ void clearScreen()
     }
 }
 
-void drawLine()
-{
-    cout << "\n*************\n\n";
-}
-
 void displayArrayContents(const char array[])
 {
     for (int i = 1; array[i] != 0; i++)
@@ -46,6 +41,11 @@ void displayVectorContents(const vector <char> &vect)
     {
         cout << vect[i];
     }
+}
+
+void drawLine()
+{
+    cout << "\n*************\n\n";
 }
 
 bool repeatGame()
