@@ -39,7 +39,7 @@ void GuessWord::initializeUnderlinesAndBlankSpaces()
             correctLettersAndBlankSpaces.push_back(underLine);
         }
         
-        /* IF SPOT IS A SPACEBAR, ADD ANOTHER */
+        // If spot is a spacebar, add another
         else
             correctLettersAndBlankSpaces.push_back(space);
         
@@ -51,7 +51,7 @@ void GuessWord::startGame()
 {
     char input;
     
-    /* PLACED SPACE BEFORE A SO I COULD USE 1 INSTEAD OF 0 IN ARRAY NOTATION TO ACCESS THE FIRST LETTER */
+    // Placed space before a so I could use 1 instead of 0 in array notation to access the first letter
     char letterPool[] = " A B C D E F G H I J K L M N O P Q R S T U V W X Y Z";
     bool wordIsSolved;
     
@@ -71,7 +71,7 @@ void GuessWord::startGame()
         
         displayArrayContents(letterPool);
         
-        /* DISPLAY Xs ASSOCIATED WITH INCORRECT GUESSES */
+        // Displays Xs associated with incorrect guesses
         if (numberOfIncorrectGuesses > 0)
         {
             temporaryIndicationOfIncorrectGuess();
