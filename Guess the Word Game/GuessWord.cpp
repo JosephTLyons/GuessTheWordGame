@@ -14,10 +14,10 @@
 void GuessWord::enterWordToBeGuessed()
 {
     char input;
-    
+
     cout << "Enter word to be guessed: ";
     cin.get(input);
-    
+
     while (input != '\n')
     {
         wordToBeGuessed.push_back(toupper(input));
@@ -29,20 +29,21 @@ void GuessWord::initializeUnderlinesAndBlankSpaces()
 {
     const char underLine = '_';
     const char space     = ' ';
-    
-    /* FILL UP CORRECTLETTERS WITH TWICE AS MANY ELEMENTS AS WORDTOGUESS, USING WORDTOGUESS.SIZE() */
+
+    // Fill up correctLetters with twice as many elements as WordToGuess, using wordToGuess.size()
     for (int i = 0; i < wordToBeGuessed.size(); i++)
     {
-        /* SKIP UNDERSCORE IF THE SPOT IS A SPACEBAR BETWEEN WORDS, ONLY PUT UNDERLINE IF ITS NOT A SPACE CHARACTER */
+        // Skip underscore if the spot is a spacebar between words
+        // Only put underline if its not a space
         if (wordToBeGuessed[i] != ' ')
         {
             correctLettersAndBlankSpaces.push_back(underLine);
         }
-        
+
         // If spot is a spacebar, add another
         else
             correctLettersAndBlankSpaces.push_back(space);
-        
+
         correctLettersAndBlankSpaces.push_back(space);
     }
 }
@@ -50,76 +51,78 @@ void GuessWord::initializeUnderlinesAndBlankSpaces()
 void GuessWord::startGame()
 {
     char input;
-    
-    // Placed space before a so I could use 1 instead of 0 in array notation to access the first letter
+
+    // Placed space before a so I could use 1 instead of 0
+    // in array notation to access the first letter
     char letterPool[] = " A B C D E F G H I J K L M N O P Q R S T U V W X Y Z";
     bool wordIsSolved;
-    
+
     resetGame();
-    
+
     do
     {
         clearScreen();
         drawLine();
         positionOfFoundLetter.clear();
-        
+
         cout << "Word to Guess: ";
-        
+
         displayVectorContents(correctLettersAndBlankSpaces);
-        
+
         cout << "\n\nLetter pool: \n\n";
-        
+
         displayArrayContents(letterPool);
-        
+
         // Displays Xs associated with incorrect guesses
         if (numberOfIncorrectGuesses > 0)
         {
             temporaryIndicationOfIncorrectGuess();
         }
-        
+
         cout << "\n\nGuess one letter: ";
-        
+
         cin >> input;
-        input = toupper(input);// CONVERT TO UPPPERCASE SO THERE'S NO CASE ISSUES
-        cin.ignore();// IGNORE NEWLINE AFTER CIN >>
-        
+        input = toupper(input);// Covert to uppercase so there's no case issues
+        cin.ignore();// Ignore newline after cin >>
+
         removeGuessedLetterFromLetterPool(letterPool, input);
-        
-        /* SEEIFLETTERGUESSEDISINWORD WILL RETURN A TRUE IF LETTER IS FOUND, ONLY INCREMENT COUNTER IF LETTER ISN'T FOUND */
-        
-        /* IT ALSO HAS A REFERENCE PARAMETER (VECTOR) THAT RETURNS THE POSITION(S) OF A LETTER FOUND, IF ANY ARE FOUND */
-        
+
+        // seeIfLetterGuessesInWord will return a true if letter is found
+        // Only incremenet count4er if letter isn't found
+        // It also has a reference paramater (vector) that returns the position(s)
+        // Of a letter found, if any are found
         if (!seeIfLetterGuessedIsInWord(input))
         {
             numberOfIncorrectGuesses++;
         }
-        
+
         if (positionOfFoundLetter.size() > 0)
         {
             insertCorrectLetterInCorrectLetterVector();
         }
-        
-        /* THIS FUNCTION USES THE UNDERSCORES TO CHECK TO SEE IF A WORD IS SOLVED */
-        /* IF UNDERLINES STILL EXIST, THEN THE WORD ISN'T SOLVED, IF NO UNDERLINES EXIST, THE WORD IS SOLVED */
+
+        // This function uses the underscores to check to see if a word is solved
+        // If underlines still exist, then the word isnt solved
+        // If no underlines exists, then the word is solved
         wordIsSolved = checkForUnderlines();
-        
+
         cout << "\n";
     }
     while ((numberOfIncorrectGuesses < 7) && (wordIsSolved == false));
-    
+
     dispalyWinOrLoseStatus();
-    
+
     cout << "\n\nWord to Guess Was: ";
-    
+
     displayVectorContents(wordToBeGuessed);
-    
+
     cout << "\n\n";
 }
 
 void GuessWord::temporaryIndicationOfIncorrectGuess() const
 {
     cout << "\n\nIncorrect guesses: ";
-    
+
     for (int i = 0; i < numberOfIncorrectGuesses; i++)
     {
         cout << "X ";
@@ -141,16 +144,16 @@ bool GuessWord::seeIfLetterGuessedIsInWord(const char &input)
 {
     for (int i = 0; i < wordToBeGuessed.size(); i++ )
     {
-        /* CHECKING TO SEE IF LETTER IS ANYWHERE IN WORDTOGUESS, BY ITERATING THROUGH IT */
+        // Checking to see if lettet is anywhere in WordToGuess, by iterating through it
         if (input == wordToBeGuessed[i])
         {
             positionOfFoundLetter.push_back(i);
         }
     }
-    
+
     if (positionOfFoundLetter.size() > 0)
         return true;
-    
+
     else
         return false;
 }
@@ -175,7 +178,7 @@ bool GuessWord::checkForUnderlines()
             return false;
         }
     }
-    
+
     return true;
 }
 
@@ -185,7 +188,7 @@ void GuessWord::dispalyWinOrLoseStatus()
     {
         cout << "You lose!";
     }
-    
+
     else
     {
         cout << "You Won!";
@@ -195,11 +198,11 @@ void GuessWord::dispalyWinOrLoseStatus()
 void GuessWord::resetGame()
 {
     numberOfIncorrectGuesses = 0;
-    
+
     wordToBeGuessed.clear();
     correctLettersAndBlankSpaces.clear();
     positionOfFoundLetter.clear();
-    
+
     enterWordToBeGuessed();
     initializeUnderlinesAndBlankSpaces();
 }
