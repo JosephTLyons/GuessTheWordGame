@@ -3,9 +3,9 @@
 using namespace std;
 
 /*
-    FIX SPACING IN OUTPUT
-    CHANGE Xs TO THE HANGMAN DRAWING
-    CHANGE DOUBLE SPACING TO SINGLE SPACING?
+    Fix spacging in ouput
+    Change Xs to hangman drawing
+    Change double spacgin to single spacing?
     Guessing the same wrong letter twice shouldn't count as an incorrect guess
 */
 
@@ -13,7 +13,7 @@ int main()
 {
     bool repeat;
     GuessWord gameInstance;
-    
+
     do
     {
         gameInstance.startGame();
